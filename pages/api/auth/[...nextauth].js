@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
-
-connectDB()
+import GoogleProvider from "next-auth/providers/google"
+import GithubProvider from "next-auth/providers/github"
 
 export default NextAuth({
   session: {
@@ -9,19 +8,15 @@ export default NextAuth({
   },
   providers: [
     // OAuth authentication providers
-    Providers.Google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    Providers.GitHub({
+    GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET
     }),
   ],
-  pages: {
-    signIn: '/login',
-    error: '/login',
-  },
  
   database: process.env.DATABASE_URL,
   callbacks: {
