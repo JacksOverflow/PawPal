@@ -14,3 +14,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.night { background: #333; color: white; }
+@media (prefers-color-scheme: dark) {
+  .day.dark-scheme   { background:  #333; color: white; }
+  .night.dark-scheme { background: black; color:  #ddd; }
+}
+.night {
+  display: inline-block;
+  padding: 1em;
+  width: 7em;
+  height: 2em;
+  vertical-align: middle;
+}
