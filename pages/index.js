@@ -1,12 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {getSession} from 'next-auth/react'
-import { toast } from 'react-toastify'
-import  {useRouter} from 'next/router'
+import {getSession, useSession} from 'next-auth/react'
 
 
 const Home = () => {
+  const { data: session} = useSession()
     return (
       <div className={styles.container}>
         <Head>
@@ -16,7 +15,7 @@ const Home = () => {
 
         <main className={styles.main}>
           <h1 className={styles.title}>
-            <p>Welcome ---, to PawPal!</p>
+            <p>Welcome {session.user.name}, to PawPal!</p>
           <Image src="/PawPalLogo.jpg" alt="PawPal Logo" width={320} height={240} />
           </h1>
         </main>

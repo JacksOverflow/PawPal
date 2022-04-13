@@ -1,12 +1,12 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import styles from "./header.module.css"
+import Link from "next/link"
 
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
   const { data: session, status } = useSession()
-  const loading = status === "loading"
 
   return (
     <header>
@@ -15,9 +15,7 @@ export default function Header() {
       </noscript>
       <div className={styles.signedInStatus}>
         <p
-          className={`nojs-show ${
-            !session && loading ? styles.loading : styles.loaded
-          }`}
+          className={`nojs-show ${styles.loaded}`}
         >
           {!session && (
             <>
@@ -63,6 +61,37 @@ export default function Header() {
           )}
         </p>
       </div>
+      {session &&(
+        <nav className={styles.centerItems}>
+          <ul className={styles.navItems}>
+            <li className={styles.navItem}>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/calendar">
+                <a>Calendar</a>
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/medhx">
+                <a>Medical History</a>
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/breed">
+                <a>Breeds</a>
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/newDog">
+                <a>Add a Dog</a>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   )
 }
