@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "next": "12.1.4",
+    "next-auth": "latest",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "next-auth": "latest"
+    "react-toastify": "^8.2.0"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4"
   }
