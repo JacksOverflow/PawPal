@@ -14,14 +14,12 @@ const Login = () => {
 
             <main className={styles.main}>
             <h1 className={styles.title}>
-                <p>Welcome to PawPal!</p>
-                <a href="/api/auth/signin">Login here!</a>
                 <p><Image src="/PawPalLogo.jpg" alt="PawPal Logo" width={320} height={240} /></p>
+                <a href="/api/auth/signin">Login here!</a>
             </h1>
             </main>
         </div>
     )
-    
 }
 
 export async function getServerSideProps (context) {

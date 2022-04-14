@@ -15,7 +15,7 @@ const Home = () => {
 
         <main className={styles.main}>
           <h1 className={styles.title}>
-            <p>Welcome {session.user.name}, to PawPal!</p>
+            <p>Welcome, {session.user.name}!</p>
           <Image src="/PawPalLogo.jpg" alt="PawPal Logo" width={320} height={240} />
           </h1>
         </main>

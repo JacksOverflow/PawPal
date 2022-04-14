@@ -10,6 +10,7 @@ export default function Header() {
 
   return (
     <header>
+      <meta name="referrer" content="no-referrer"/>
       <noscript>
         <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
       </noscript>
@@ -35,13 +36,15 @@ export default function Header() {
             </>
           )}
           {session?.user && (
-            <>
+            <> 
+            
               {session.user.image && (
                 <span
-                  style={{ backgroundImage: `url('${session.user.image}')` }}
+                  style={{ backgroundImage: `url('${session.user.image}')`}}
                   className={styles.avatar}
+                  referrerpolicy="no-referrer"
                 />
-              )}
+              )} 
               <span className={styles.signedInText}>
                 <small>Signed in as</small>
                 <br />
