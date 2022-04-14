@@ -42,7 +42,6 @@ export default function Header() {
                 <span
                   style={{ backgroundImage: `url('${session.user.image}')`}}
                   className={styles.avatar}
-                  referrerpolicy="no-referrer"
                 />
               )} 
               <span className={styles.signedInText}>

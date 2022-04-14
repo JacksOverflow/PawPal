@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "moment": "^2.29.2",
     "next": "12.1.4",
     "next-auth": "latest",
     "react": "18.0.0",
     "react-bootstrap": "^2.2.3",
+    "react-calendar": "^3.7.0",
     "react-dom": "18.0.0",
     "react-toastify": "^8.2.0"
   },
