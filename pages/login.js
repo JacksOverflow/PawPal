@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {getSession} from 'next-auth/react'
 import React from 'react'
+import {signIn} from 'next-auth/react'
 
 const Login = () => {
     return (
@@ -15,7 +16,14 @@ const Login = () => {
             <main className={styles.main}>
             <h1 className={styles.title}>
                 <p><Image src="/PawPalLogo.jpg" alt="PawPal Logo" width={320} height={240} /></p>
-                <a href="/api/auth/signin">Login here!</a>
+                <button
+                    href="/api/auth/signin" 
+                    onClick={(e) => {
+                        e.preventDefault()
+                        signIn()
+                    }}>
+                    Login here!
+                </button>
             </h1>
             </main>
         </div>

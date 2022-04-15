@@ -1,9 +1,10 @@
-
+import Head from 'next/head'
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
 import React, {useState} from 'react'
 import moment from 'moment'
 import { SessionProvider, useSession, getSession } from "next-auth/react"
+import 'react-calendar/dist/Calendar.css';
+import styles from '../styles/Home.module.css'
 
 function MyCalendar() {
     const [dateState, setDateState] = useState(new Date())
@@ -12,15 +13,22 @@ function MyCalendar() {
       setDateState(e)
     }
     
-
     return (
-        <SessionProvider session={session}>
-                <Calendar 
-                        value={dateState}
-                        onChange={changeDate}
-                />
-                <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
-        </SessionProvider>
+        <>
+            <Head>
+                <title>PawPal</title>
+                <link rel="icon" href="/bone.ico" />
+            </Head>
+            <SessionProvider session={session}>
+                <main className={styles.main}>
+                    <Calendar 
+                            value={dateState}
+                            onChange={changeDate}
+                    />
+                    <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
+                </main>
+            </SessionProvider>
+        </>
     )
 }
 
