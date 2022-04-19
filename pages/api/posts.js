@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getPosts(req, res);
+            return getPosts(req, res)
         }
 
         case 'POST': {
@@ -29,10 +29,10 @@ async function getPosts(req,res){
         // fetch the posts
         let posts = await db
             .collection('posts')
-            .find({})
+            .find({user: req.query.name})
             .sort({ published: -1 })
             .toArray();
-        // return the posts
+        // return the post
         return res.json({
             message: JSON.parse(JSON.stringify(posts)),
             success: true,

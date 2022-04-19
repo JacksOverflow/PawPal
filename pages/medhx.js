@@ -4,7 +4,7 @@ import styles from '../components/post.module.css'
 import { SessionProvider, useSession, getSession } from "next-auth/react"
 
 export default function MedHx({posts}){
-  const [date, setDate] = useState('');
+  const [user, setUser] = useState('');
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -18,11 +18,11 @@ export default function MedHx({posts}){
       setMessage('');
 
       // fields check
-      if (!date || !content) return setError('All fields are required');
+      if (!content) return setError('All fields are required');
 
       // post structure
       let post = {
-          date,
+          user,
           content,
           published: false,
           createdAt: new Date().toISOString(),
@@ -38,7 +38,7 @@ export default function MedHx({posts}){
 
       if (data.success) {
           // reset the fields
-          setDate('');
+          setUser('');
           setContent('');
           // set the message
           return setMessage(data.message);
@@ -74,16 +74,6 @@ export default function MedHx({posts}){
                       </div>
                   ) : null}
                   <div className={styles.formItem}>
-                      <label>Date</label>
-                      <input
-                          type="text"
-                          name="date"
-                          onChange={(e) => setDate(e.target.value)}
-                          value={date}
-                          placeholder="Add today's date"
-                      />
-                  </div>
-                  <div className={styles.formItem}>
                       <label>Content</label>
                       <textarea
                           name="content"
@@ -93,7 +83,9 @@ export default function MedHx({posts}){
                       />
                   </div>
                   <div className={styles.formItem}>
-                      <button type="submit">Add post</button>
+                      <button type="submit"
+                        onClick={(e) => setUser(session.user.email)}>
+                        Add post</button>
                   </div>
               </form>
           </div>
@@ -105,13 +97,14 @@ export default function MedHx({posts}){
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
+  const userId = session.user.email
 
   // get the current environment
   let dev = process.env.NODE_ENV !== 'production';
   let { DEV_URL, PROD_URL } = process.env;
 
   // request posts from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts`);
+  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts?name=${session.user.email}`);
   // extract the data
   let data = await response.json();
 

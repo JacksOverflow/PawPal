@@ -41,4 +41,7 @@
 .centerItems{
     text-align: center;
   }
-  
+
+.readOnly{
+    pointer-events: none;
+}
