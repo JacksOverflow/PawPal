@@ -1,5 +1,5 @@
 import connectDB from '../../../config/connectDB'
-import History from '../../../models/hxModel'
+import History from '../../../components/models/hxModel'
 import { getSession } from 'next-auth/client'
 
 connectDB()
