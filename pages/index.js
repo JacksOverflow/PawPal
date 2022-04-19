@@ -6,6 +6,7 @@ import {getSession, useSession} from 'next-auth/react'
 
 const Home = () => {
   const { data: session} = useSession()
+
     return (
       <div className={styles.container}>
         <Head>
