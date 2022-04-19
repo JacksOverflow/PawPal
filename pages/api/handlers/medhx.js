@@ -1,6 +1,6 @@
 import connectDB from '../../../config/connectDB'
 import History from '../../../components/models/hxModel'
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 
 connectDB()
 export default async function handler(req, res){
