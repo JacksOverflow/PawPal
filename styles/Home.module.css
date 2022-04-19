@@ -114,3 +114,7 @@
     flex-direction: column;
   }
 }
+
+.centerItems{
+  text-align: center;
+}

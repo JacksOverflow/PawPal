@@ -10,9 +10,6 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "ejs": "^3.0.2",
-    "express": "^4.17.3",
-    "fs": "^0.0.1-security",
     "moment": "^2.29.2",
     "mongodb": "^4.5.0",
     "mongoose": "latest",

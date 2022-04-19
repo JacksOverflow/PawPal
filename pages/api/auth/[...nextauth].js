@@ -19,6 +19,7 @@ export default NextAuth({
   ],
   theme:{
     colorScheme: "dark", // "auto" | "dark" | "light"
-  }
+  },
+  database: process.env.MONGO_URL,
 })
 
