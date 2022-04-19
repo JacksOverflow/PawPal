@@ -1,9 +1,8 @@
-//import connectDB from '../../../config/connectDB'
+import connectDB from '../../../config/connectDB'
 import History from '../../../models/hxModel'
 import { getSession } from 'next-auth/client'
 
-//connectDB()
-
+connectDB()
 export default async function handler(req, res){
   switch(req.method){
     case "POST":

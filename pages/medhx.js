@@ -6,9 +6,7 @@ import HxInput from '../components/HxInput'
 import HxItem from '../components/HxItem'
 
 
-
-
-const medHx = () => {
+const MedHx = () => {
     const [hx, setHx] = useState([])
 
     useEffect(() => {
@@ -54,4 +52,4 @@ export async function getServerSideProps(context) {
     }
   }
 
-export default medHx
+export default MedHx
