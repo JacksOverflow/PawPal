@@ -6,7 +6,7 @@ import Link from "next/link"
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const { data: session, status } = useSession()
+  const { data: session} = useSession()
 
   return (
     <header>
@@ -84,6 +84,11 @@ export default function Header() {
             <li className={styles.navItem}>
               <Link href="/pack">
                 <a>Dog Pack!</a>
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/album">
+                <a>Photo Album</a>
               </Link>
             </li>
           </ul>
