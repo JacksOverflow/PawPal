@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function Post({ post }) {
+export default function Event({ event }) {
     const [publishing, setPublishing] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const router = useRouter();
 
-    // Publish post
-    const publishPost = async (postId) => {
+    // Publish event
+    const publishEvent = async (eventId) => {
         // change publishing state
         setPublishing(true);
 
         try {
-            // Update post
-            await fetch('/api/posts', {
+            // Update event
+            await fetch('/api/events', {
                 method: 'PUT',
-                body: postId,
+                body: eventId,
             });
 
             // reset the publishing state
@@ -28,16 +28,16 @@ export default function Post({ post }) {
             return setPublishing(false);
         }
     };
-    // Delete post
-    const deletePost = async (postId) => {
+    // Delete event
+    const deleteEvent = async (eventId) => {
         //change deleting state
         setDeleting(true);
 
         try {
-            // Delete post
-            await fetch('/api/posts', {
+            // Delete event
+            await fetch('/api/events', {
                 method: 'DELETE',
-                body: postId,
+                body: eventId,
             });
 
             // reset the deleting state
@@ -53,16 +53,14 @@ export default function Post({ post }) {
     return (
         <>
             <ul>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-                <br />
-                {!post.published ? (
-                    <button type="button" onClick={() => publishPost(post._id)}>
+                <h3>{event.eventDate}</h3>
+                <p>{event.content}</p>
+                {!event.published ? (
+                    <button type="button" onClick={() => publishEvent(event._id)}>
                         {publishing ? 'Publishing' : 'Publish'}
                     </button>
                 ) : null}
-                <button type="button" onClick={() => deletePost(post['_id'])}>
+                <button type="button" onClick={() => deleteEvent(event['_id'])}>
                     {deleting ? 'Deleting' : 'Delete'}
                 </button>
             </ul>

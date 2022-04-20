@@ -116,9 +116,9 @@ export async function getServerSideProps(context) {
     }
   }
   return {
-      props: { 
-        session,
-        posts: data['message'],
-      }
+    props: { 
+      session,
+      posts: data['message'],
+    }
   }
 }
