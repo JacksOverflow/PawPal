@@ -70,7 +70,7 @@ export default function Album({images}) {
           <p className={styles.description}>
             Upload your dog pack! 
             <br/>
-            <small>(rename files as your full name (refer to top left corner) with spaces and .jpg [ex. 'John Doe.jpg' or 'Jane1023.jpg'] before uploading)</small>
+            <small>(rename files as your full name (refer to top left corner) with spaces and .jpg [ex. John Doe.jpg or Jane1023.jpg] before uploading)</small>
           </p>
           <form className={styles.form} method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
             <p>
