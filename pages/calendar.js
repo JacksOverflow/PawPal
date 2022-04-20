@@ -18,7 +18,13 @@ export default function MyCalendar({events}) {
   const changeDate = (e) =>{
     setDateState(e)
   }
-  
+
+  function reloadAsGet()
+  {
+    var loc = window.location;
+    window.location = loc.protocol + '//' + loc.host + loc.pathname;
+  }
+
   const handleEvent = async (e) => {
     e.preventDefault();
 
@@ -47,16 +53,17 @@ export default function MyCalendar({events}) {
 
     if (data.success) {
         // reset the fields
-        setUser('');
         setContent('');
-        setEventDate('');
         // set the message
-        return setMessage(data.message);
+        setMessage(data.message);
+        return reloadAsGet();
     } else {
         // set the error
         return setError(data.message);
     }
   };
+
+  
   
   return (
     <>
@@ -65,17 +72,14 @@ export default function MyCalendar({events}) {
       <link rel="icon" href="/bone.ico" />
       </Head>
       <SessionProvider session={session}>
-            <div className={styles.container}>
-              
-            </div>
             <main className={styles.container}>
               {events.length === 0 ? (
                   <h2>No Scheduled Events</h2>
                 ) : (
                   <ul>
-                      {events.map((event, i) => (
-                          <Event event={event} key={i} />
-                      ))}
+                    {events.map((event, i) => (
+                        <Event event={event} key={i} />
+                    ))}
                   </ul>
               )}
               <Calendar value={dateState} onChange={changeDate}/>
@@ -107,6 +111,7 @@ export default function MyCalendar({events}) {
                                 [setUser(session.user.name), 
                                 setEventDate(moment(dateState).format('MMMM Do YYYY'))]}>
                               Add event</button>
+                            
                         </div>
                     </form>
                 </div>
@@ -140,7 +145,7 @@ export async function getServerSideProps(context) {
   return {
     props: { 
       session,
-      events: data['message'], 
+      events: data['message'],
     }
   }
 }

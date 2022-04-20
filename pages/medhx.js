@@ -10,6 +10,12 @@ export default function MedHx({posts}){
   const [message, setMessage] = useState('');
   const { data: session} = useSession();
 
+  function reloadAsGet()
+  {
+    var loc = window.location;
+    window.location = loc.protocol + '//' + loc.host + loc.pathname;
+  }
+
   const handlePost = async (e) => {
       e.preventDefault();
 
@@ -41,7 +47,8 @@ export default function MedHx({posts}){
           setUser('');
           setContent('');
           // set the message
-          return setMessage(data.message);
+          setMessage(data.message);
+          return reloadAsGet();
       } else {
           // set the error
           return setError(data.message);

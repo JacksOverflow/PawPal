@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getEvents(req, res)
+            return getEvents(req, res) 
         }
 
         case 'POST': {
@@ -55,7 +55,7 @@ async function addEvent(req, res) {
         // return a message
         return res.json({
             message: 'Event added successfully',
-            success: true,
+            success: true
         });
     } catch (error) {
         // return an error
@@ -100,7 +100,7 @@ async function deleteEvent(req, res) {
         let { db } = await connectToDatabase();
 
         // Deleting the event
-        await db.collection('Events').deleteOne({
+        await db.collection('events').deleteOne({
             _id: new ObjectId(req.body),
         });
 
