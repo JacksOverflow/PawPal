@@ -109,7 +109,7 @@ export default function MyCalendar({events}) {
                             <button type="submit"
                               onClick={(e) => 
                                 [setUser(session.user.name), 
-                                setEventDate(moment(dateState).format('MMMM Do YYYY'))]}>
+                                setEventDate(moment(dateState).format())]}>
                               Add event</button>
                             
                         </div>

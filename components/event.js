@@ -1,33 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import moment from 'moment'
 
 export default function Event({ event }) {
-    const [publishing, setPublishing] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const router = useRouter();
 
-    // Publish event
-    const publishEvent = async (eventId) => {
-        // change publishing state
-        setPublishing(true);
-
-        try {
-            // Update event
-            await fetch('/api/events', {
-                method: 'PUT',
-                body: eventId,
-            });
-
-            // reset the publishing state
-            setPublishing(false);
-
-            // reload the page
-            return router.push(router.asPath);
-        } catch (error) {
-            // Stop publishing state
-            return setPublishing(false);
-        }
-    };
     // Delete event
     const deleteEvent = async (eventId) => {
         //change deleting state
@@ -53,13 +31,8 @@ export default function Event({ event }) {
     return (
         <>
             <ul>
-                <h3>{event.eventDate}</h3>
+                <h3>{moment(event.eventDate).format("MMMM Do YYYY")}</h3>
                 <p>{event.content}</p>
-                {!event.published ? (
-                    <button type="button" onClick={() => publishEvent(event._id)}>
-                        {publishing ? 'Publishing' : 'Publish'}
-                    </button>
-                ) : null}
                 <button type="button" onClick={() => deleteEvent(event['_id'])}>
                     {deleting ? 'Deleting' : 'Delete'}
                 </button>

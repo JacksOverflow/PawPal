@@ -1,5 +1,4 @@
 import Header from "./header"
-import Footer from "./footer"
 
 
 const name = 'Paw Pal'
@@ -10,7 +9,6 @@ export default function Layout({ children }) {
     <>
       <Header />
       <main>{children}</main>
-      <Footer />
     </>
   )
 }

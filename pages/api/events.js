@@ -30,7 +30,7 @@ async function getEvents(req,res){
         let events = await db
             .collection('events')
             .find({user: req.query.name})
-            .sort({ published: -1 })
+            .sort({ eventDate: 1})
             .toArray();
         // return the event
         return res.json({
