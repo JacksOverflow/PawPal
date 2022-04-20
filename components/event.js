@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import moment from 'moment'
 
-export default function Post({ post }) {
+export default function Event({ event }) {
     const [deleting, setDeleting] = useState(false);
     const router = useRouter();
 
-    // Delete post
-    const deletePost = async (postId) => {
+    // Delete event
+    const deleteEvent = async (eventId) => {
         //change deleting state
         setDeleting(true);
 
         try {
-            // Delete post
-            await fetch('/api/posts', {
+            // Delete event
+            await fetch('/api/events', {
                 method: 'DELETE',
-                body: postId,
+                body: eventId,
             });
 
             // reset the deleting state
@@ -30,15 +31,11 @@ export default function Post({ post }) {
     return (
         <>
             <ul>
-                
-                <p>{post.content}
-                <br />
-                    <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-                <br />
-                <button type="button" onClick={() => deletePost(post['_id'])}>
+                <h3>{moment(event.eventDate).format("MMMM Do YYYY")}</h3>
+                <p>{event.content}</p>
+                <button type="button" onClick={() => deleteEvent(event['_id'])}>
                     {deleting ? 'Deleting' : 'Delete'}
                 </button>
-                </p>
             </ul>
         </>
     );
