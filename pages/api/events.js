@@ -12,10 +12,6 @@ export default async function handler(req, res) {
             return addEvent(req, res);
         }
 
-        case 'PUT': {
-            return updateEvent(req, res);
-        }
-
         case 'DELETE': {
             return deleteEvent(req, res);
         }
@@ -58,34 +54,6 @@ async function addEvent(req, res) {
             success: true
         });
     } catch (error) {
-        // return an error
-        return res.json({
-            message: new Error(error).message,
-            success: false,
-        });
-    }
-}
-
-async function updateEvent(req, res) {
-    try {
-        // connect to the database
-        let { db } = await connectToDatabase();
-
-        // update the published status of the event
-        await db.collection('events').updateOne(
-            {
-                _id: new ObjectId(req.body),
-            },
-            { $set: { published: true } }
-        );
-
-        // return a message
-        return res.json({
-            message: 'Event updated successfully',
-            success: true,
-        });
-    } catch (error) {
-
         // return an error
         return res.json({
             message: new Error(error).message,

@@ -82,13 +82,8 @@ export default function Header() {
               </Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/breed">
-                <a>Breeds</a>
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/newDog">
-                <a>Add a Dog</a>
+              <Link href="/pack">
+                <a>Dog Pack!</a>
               </Link>
             </li>
           </ul>

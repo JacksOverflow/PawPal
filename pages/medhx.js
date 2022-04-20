@@ -1,3 +1,4 @@
+import Head from "next/head"
 import React, {useState} from 'react'
 import Post from '../components/post'
 import styles from '../components/post.module.css'
@@ -56,6 +57,11 @@ export default function MedHx({posts}){
   };
 
   return(
+    <>
+    <Head>
+        <title>PawPal</title>
+        <link rel="icon" href="/bone.ico" />
+    </Head>
     <SessionProvider session={session}>
       <main className={styles.container}>
         {posts.length === 0 ? (
@@ -97,8 +103,9 @@ export default function MedHx({posts}){
               </form>
           </div>
         </div>
-    </main>
+      </main>
     </SessionProvider>
+    </>
   )
 }
 
