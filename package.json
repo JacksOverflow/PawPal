@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "mongodb": "^4.5.0",
     "mongoose": "latest",
@@ -19,7 +20,8 @@
     "react-bootstrap": "^2.2.3",
     "react-calendar": "^3.7.0",
     "react-dom": "18.0.0",
-    "react-toastify": "^8.2.0"
+    "react-toastify": "^8.2.0",
+    "sass": "^1.43.4"
   },
   "devDependencies": {
     "@babel/plugin-syntax-top-level-await": "^7.14.5",

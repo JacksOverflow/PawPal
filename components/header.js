@@ -6,7 +6,7 @@ import Link from "next/link"
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const { data: session, status } = useSession()
+  const { data: session} = useSession()
 
   return (
     <header>
@@ -47,7 +47,7 @@ export default function Header() {
               <span className={styles.signedInText}>
                 <small>Signed in as</small>
                 <br />
-                <strong>{session.user.email ?? session.user.name}</strong>
+                <strong>{session.user.name.split(" ")}</strong>
               </span>
               <a
                 href={`/api/auth/signout`}
@@ -82,13 +82,13 @@ export default function Header() {
               </Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/breed">
-                <a>Breeds</a>
+              <Link href="/pack">
+                <a>Dog Pack!</a>
               </Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/newDog">
-                <a>Add a Dog</a>
+              <Link href="/album">
+                <a>Photo Album</a>
               </Link>
             </li>
           </ul>

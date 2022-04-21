@@ -111,7 +111,6 @@ export default function MyCalendar({events}) {
                                 [setUser(session.user.name), 
                                 setEventDate(moment(dateState).format())]}>
                               Add event</button>
-                            
                         </div>
                     </form>
                 </div>
