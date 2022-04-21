@@ -110,7 +110,17 @@ export default function Album({images}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const results = await search(session.user.name);
+  const splitName = session.user.name.split(" "); 
+  var name;
+
+  if(session.user.name.includes(" ")){
+    name = splitName[0] + splitName[1]
+  } else {
+    name = session.user.name;
+  }
+
+  const results = await search(name);
+
 
   const {resources} = results;
   const images = mapImageResources(resources);
