@@ -70,7 +70,7 @@ export default function Album({images}) {
           <p className={styles.description}>
             Upload your dog pack! 
             <br/>
-            <small>(rename files as your full name (refer to top left corner) with spaces and .jpg [ex. John Doe.jpg or Jane1023.jpg] before uploading)</small>
+            <small>(rename files as your full user name (refer to top left corner) without spaces and .jpg [ex. JohnDoe.jpg or Jane1023.jpg] before uploading)</small>
           </p>
           <form className={styles.form} method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
             <p>
@@ -110,7 +110,7 @@ export default function Album({images}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const results = await search(session.user.name);
+  const results = await search(session.user.name.split(" "));
   const {resources} = results;
   const images = mapImageResources(resources);
 
