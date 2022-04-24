@@ -5,6 +5,7 @@ import { SessionProvider, useSession, getSession } from "next-auth/react"
 import 'react-calendar/dist/Calendar.css';
 import styles from '../components/post.module.css'
 import Dog from '../components/dog'
+import {useRouter} from 'next/router'
 
 export default function Pack({ dogs }) {
     const [user, setUser] = useState('');
@@ -13,12 +14,8 @@ export default function Pack({ dogs }) {
     const [age, setAge] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
-    const { data: session } = useSession()
-
-    function reloadAsGet() {
-        var loc = window.location;
-        window.location = loc.protocol + '//' + loc.host + loc.pathname;
-    }
+    const { data: session } = useSession();
+    const router = useRouter();
 
     const handleDog = async (e) => {
         e.preventDefault();
@@ -54,7 +51,7 @@ export default function Pack({ dogs }) {
             setBreed('');
             // set the message
             setMessage(data.message);
-            return reloadAsGet();
+            return router.push(router.asPath);
         } else {
             // set the error
             return setError(data.message);

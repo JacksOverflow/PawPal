@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Post from '../components/post'
 import styles from '../components/post.module.css'
 import { SessionProvider, useSession, getSession } from "next-auth/react"
+import {useRouter} from "next/router"
 
 export default function MedHx({posts}){
   const [user, setUser] = useState('');
@@ -10,12 +11,7 @@ export default function MedHx({posts}){
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const { data: session} = useSession();
-
-  function reloadAsGet()
-  {
-    var loc = window.location;
-    window.location = loc.protocol + '//' + loc.host + loc.pathname;
-  }
+  const router = useRouter();
 
   const handlePost = async (e) => {
       e.preventDefault();
@@ -49,7 +45,7 @@ export default function MedHx({posts}){
           setContent('');
           // set the message
           setMessage(data.message);
-          return reloadAsGet();
+          return router.push(router.asPath);
       } else {
           // set the error
           return setError(data.message);

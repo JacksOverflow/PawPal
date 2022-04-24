@@ -6,6 +6,7 @@ import { SessionProvider, useSession, getSession } from "next-auth/react"
 import 'react-calendar/dist/Calendar.css';
 import styles from '../components/post.module.css'
 import Event from '../components/event'
+import {useRouter} from 'next/router'
 
 export default function MyCalendar({events}) {
   const [user, setUser] = useState('');
@@ -15,16 +16,11 @@ export default function MyCalendar({events}) {
   const [message, setMessage] = useState('');
   const [dateState, setDateState] = useState(new Date())
   const { data: session} = useSession()
+  const router = useRouter();
+
   const changeDate = (e) =>{
     setDateState(e)
   }
-
-  function reloadAsGet()
-  {
-    var loc = window.location;
-    window.location = loc.protocol + '//' + loc.host + loc.pathname;
-  }
-
   const handleEvent = async (e) => {
     e.preventDefault();
 
@@ -56,7 +52,7 @@ export default function MyCalendar({events}) {
         setContent('');
         // set the message
         setMessage(data.message);
-        return reloadAsGet();
+        return router.push(router.asPath)
     } else {
         // set the error
         return setError(data.message);
