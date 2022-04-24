@@ -3,7 +3,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {SessionProvider, getSession, useSession} from "next-auth/react"
 import Image from 'next/image'
-import images from '../data/images'
+import {useRouter} from 'next/router'
+
 
 import {search, mapImageResources} from '../lib/cloudinary'
 
@@ -11,11 +12,12 @@ export default function Album({images}) {
   console.log('images', images);
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
-  const { data: session} = useSession()
+  const { data: session} = useSession();
+  const router = useRouter();
 
   /**
    * handleOnChange
-   * @description Triggers when the file input changes (ex: when a file is selected)
+   * Triggers when the file input changes (ex: when a file is selected)
    */
 
   function handleOnChange(changeEvent) {
@@ -31,7 +33,7 @@ export default function Album({images}) {
 
   /**
    * handleOnSubmit
-   * @description Triggers when the main form is submitted
+   * Triggers when the main form is submitted
    */
 
   async function handleOnSubmit(event) {
@@ -52,7 +54,7 @@ export default function Album({images}) {
     }).then(res => res.json());
 
     setImageSrc(data.secure_url);
-    setUploadData(data)
+    setUploadData(data);
   }
 
   return (
@@ -110,6 +112,14 @@ export default function Album({images}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  if(!session){
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
   const splitName = session.user.name.split(" "); 
   var name;
 
@@ -124,15 +134,6 @@ export async function getServerSideProps(context) {
 
   const {resources} = results;
   const images = mapImageResources(resources);
-
-  if(!session){
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      }
-    }
-  }
   return {
     props: { 
       session,

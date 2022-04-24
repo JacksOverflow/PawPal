@@ -6,6 +6,7 @@ import { SessionProvider, useSession, getSession } from "next-auth/react"
 import 'react-calendar/dist/Calendar.css';
 import styles from '../components/post.module.css'
 import Event from '../components/event'
+import {useRouter} from 'next/router'
 
 export default function MyCalendar({events}) {
   const [user, setUser] = useState('');
@@ -15,16 +16,11 @@ export default function MyCalendar({events}) {
   const [message, setMessage] = useState('');
   const [dateState, setDateState] = useState(new Date())
   const { data: session} = useSession()
+  const router = useRouter();
+
   const changeDate = (e) =>{
     setDateState(e)
   }
-
-  function reloadAsGet()
-  {
-    var loc = window.location;
-    window.location = loc.protocol + '//' + loc.host + loc.pathname;
-  }
-
   const handleEvent = async (e) => {
     e.preventDefault();
 
@@ -56,7 +52,7 @@ export default function MyCalendar({events}) {
         setContent('');
         // set the message
         setMessage(data.message);
-        return reloadAsGet();
+        return router.push(router.asPath)
     } else {
         // set the error
         return setError(data.message);
@@ -123,16 +119,6 @@ export default function MyCalendar({events}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
-
-  // get the current environment
-  let dev = process.env.NODE_ENV !== 'production';
-  let { DEV_URL, PROD_URL } = process.env;
-
-  // request events from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/events?name=${session.user.name}`);
-  // extract the data
-  let data = await response.json();
-
   if(!session){
     return {
       redirect: {
@@ -141,6 +127,14 @@ export async function getServerSideProps(context) {
       }
     }
   }
+    // get the current environment
+    let dev = process.env.NODE_ENV !== 'production';
+    let { DEV_URL, PROD_URL } = process.env;
+  
+    // request events from api
+    let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/events?name=${session.user.name}`);
+    // extract the data
+    let data = await response.json();
   return {
     props: { 
       session,

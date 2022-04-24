@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Post from '../components/post'
 import styles from '../components/post.module.css'
 import { SessionProvider, useSession, getSession } from "next-auth/react"
+import {useRouter} from "next/router"
 
 export default function MedHx({posts}){
   const [user, setUser] = useState('');
@@ -10,12 +11,7 @@ export default function MedHx({posts}){
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const { data: session} = useSession();
-
-  function reloadAsGet()
-  {
-    var loc = window.location;
-    window.location = loc.protocol + '//' + loc.host + loc.pathname;
-  }
+  const router = useRouter();
 
   const handlePost = async (e) => {
       e.preventDefault();
@@ -49,7 +45,7 @@ export default function MedHx({posts}){
           setContent('');
           // set the message
           setMessage(data.message);
-          return reloadAsGet();
+          return router.push(router.asPath);
       } else {
           // set the error
           return setError(data.message);
@@ -111,16 +107,6 @@ export default function MedHx({posts}){
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
-
-  // get the current environment
-  let dev = process.env.NODE_ENV !== 'production';
-  let { DEV_URL, PROD_URL } = process.env;
-
-  // request posts from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts?name=${session.user.name}`);
-  // extract the data
-  let data = await response.json();
-
   if(!session){
     return {
       redirect: {
@@ -129,7 +115,16 @@ export async function getServerSideProps(context) {
       }
     }
   }
+    // get the current environment
+    let dev = process.env.NODE_ENV !== 'production';
+    let { DEV_URL, PROD_URL } = process.env;
+  
+    // request posts from api
+    let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/posts?name=${session.user.name}`);
+    // extract the data
+    let data = await response.json();
   return {
+    
     props: { 
       session,
       posts: data['message'],
