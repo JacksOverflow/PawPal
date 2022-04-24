@@ -119,16 +119,6 @@ export default function MyCalendar({events}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
-
-  // get the current environment
-  let dev = process.env.NODE_ENV !== 'production';
-  let { DEV_URL, PROD_URL } = process.env;
-
-  // request events from api
-  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/events?name=${session.user.name}`);
-  // extract the data
-  let data = await response.json();
-
   if(!session){
     return {
       redirect: {
@@ -137,6 +127,14 @@ export async function getServerSideProps(context) {
       }
     }
   }
+    // get the current environment
+    let dev = process.env.NODE_ENV !== 'production';
+    let { DEV_URL, PROD_URL } = process.env;
+  
+    // request events from api
+    let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/events?name=${session.user.name}`);
+    // extract the data
+    let data = await response.json();
   return {
     props: { 
       session,
