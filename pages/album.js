@@ -112,14 +112,6 @@ export default function Album({images}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  if(!session){
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      }
-    }
-  }
   const splitName = session.user.name.split(" "); 
   var name;
 
@@ -131,6 +123,15 @@ export async function getServerSideProps(context) {
 
   const results = await search(name);
 
+
+  if(!session){
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
 
   const {resources} = results;
   const images = mapImageResources(resources);
