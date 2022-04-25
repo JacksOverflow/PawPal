@@ -114,6 +114,10 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   const splitName = session.user.name.split(" "); 
   var name;
+  
+  
+  const {resources} = results;
+  const images = mapImageResources(resources);
 
   if(session.user.name.includes(" ")){
     name = splitName[0] + splitName[1]
@@ -133,8 +137,6 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const {resources} = results;
-  const images = mapImageResources(resources);
   return {
     props: { 
       session,
